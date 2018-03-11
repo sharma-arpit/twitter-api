@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('search') }}" class="form-inline" method="get">
+	<div class="form-group s">
+	  <label class="sr-only" for="query">query</label>
+		<input class="form-control" name="query" placeholder="Trending Term" type="text"/>
+	</div>
+  <button class="btn btn-success" type="submit">Search</button>
+</form>
+
+<form action="{{ url_for('query') }}" class="form-inline" method="get">
+	<div class="form-group q">
+	  <label class="sr-only" for="query">query</label>
+	  <input class="form-control" name="query" placeholder="Query" type="text"/>
+	</div>
+	<tr>
+		<td class = "select">Order By</td>
+		<td ALIGN="center">
+		   <select name="orderby" >
+				<option value="tweet_id">Time</option>
+				<option value="Retweet">Retweet</option>
+				<option value="favorite_count">Favorites</option>
+		   </select>
+		</td>
+	</tr>
+  <button class="btn btn-info" type="submit">Search</button>
+</form>
+{% endblock %}
+
+{% block trends %}
+<p>Trending terms on twitter</p>
+	{% for trend in trends[0]["trends"] %}
+		{% if trend['name'].startswith('#') %}
+			<span class="label label-warning"><a href="{{ url_for('search') }}?query=#{{ trend['name'][1:] }}">{{ trend["name"] }}</a></span>
+		{% else %}
+			<span class="label label-warning"><a href="{{ url_for('search') }}?query={{ trend['name'] }}">{{ trend["name"] }}</a></span>
+		{% endif %}
+	{% endfor %}
+{% endblock %}
+

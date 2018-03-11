@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block subtext %}{{ query }}{% endblock %}
+
+{% block body %}
+<p>Search the term in tweets, username, hashtags etc.</p>
+<form action="{{ url_for('query') }}" class="form-inline" method="get">
+	<div class="form-group">
+	  	<label class="sr-only" for="query">Text Search</label>
+	  	<input class="form-control" name="query" placeholder="query" type="text"/>
+	</div>
+	<tr>
+		<td class = "select">Order By</td>
+		<td ALIGN="center">
+		   <select name="orderby">
+				<option value="tweet_id">Time</option>
+				<option value="Retweet">Retweet</option>
+				<option value="Favorite_count">Favorites</option>
+		   </select>
+		</td>
+	</tr>
+ 	<button class="btn btn-info" type="submit">Search</button>
+</form>
+<form action="{{ url_for('delete') }}" class="form-inline" method="get">
+	<div class="form-group">
+	  	<label class="sr-only" for="delete">Text Search</label>
+	  	<input class="form-control" name="delete" placeholder="Delete" type="text"/>
+	  	<button class="btn btn-info" type="submit">Delete</button>
+	</div>
+</form>
+
+{% endblock %}
+
+{% block trends %}
+{% if not msg %}
+	<p>Trending topics for filtering Below table</p>
+	{% for trend in trends[0]["trends"] %}
+		{% if trend['name'].startswith('#') %}
+			<span class="label label-warning"><a href="{{ url_for('query') }}?query={{ trend['name'][1:] }}">{{ trend["name"] }}</a></span>
+		{% else %}
+			<span class="label label-warning"><a href="{{ url_for('query') }}?query={{ trend['name'] }}">{{ trend["name"] }}</a></span>
+		{% endif %}
+	{% endfor %}
+{% else %}
+	<p>{{ msg }}</p>
+{% endif %}
+{% endblock %}
+
+{% block tweets %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Tweet</th>
+				<th>Screen name</th>
+				<th>Hashtags</th>
+				<th>Topics</th>
+				<th>Datetime</th>
+				<th>Retweet</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for tweet in tweets %}
+				<tr>
+					<td>{{ tweet[1] }}</td>
+					<td>{{ tweet[3] }}</td>
+					<td>{{ tweet[4] }}</td>
+					<td>{{ tweet[5] }}</td>
+					<td>{{ tweet[6] }}</td>
+					<td>{{ tweet[8] }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
