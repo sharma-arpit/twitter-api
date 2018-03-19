@@ -1,6 +1,5 @@
 import sqlite3, time, helper
 from flask import Flask, redirect, render_template, request, url_for, flash
-import csv
 
 
 app = Flask(__name__)
