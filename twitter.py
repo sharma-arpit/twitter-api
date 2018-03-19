@@ -46,6 +46,8 @@ def query():
 @app.route("/search")
 def search():
 	q = request.args.get('query')
+	if not q:
+		return redirect(url_for("home"))
 	helper.get_tweets(q)
 	return redirect(url_for("home"))
 
