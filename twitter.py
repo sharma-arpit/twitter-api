@@ -25,7 +25,7 @@ def query():
 	data = []
 	if order == 'Retweet':
 		c.execute("SELECT * FROM twitter ORDER BY Retweet DESC")
-	elif order == 'Favorite_count':
+	elif order == 'favorite_count':
 		c.execute("SELECT * FROM twitter ORDER BY Favorite_count DESC")
 	else:
 		c.execute("SELECT * FROM twitter ORDER BY tweet_id DESC")
