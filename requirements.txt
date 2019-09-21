@@ -1,0 +1,3 @@
+tweepy
+Sqlite3
+flask
