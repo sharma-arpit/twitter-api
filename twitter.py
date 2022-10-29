@@ -54,7 +54,7 @@ def search():
 def delete():
 	delete_term = request.args.get('delete')
 	if delete_term:
-		c.execute("DELETE FROM twitter WHERE Topics='%s'"%delete_term)
+		c.execute(f"DELETE FROM twitter WHERE Topics='{delete_term}'")
 		conn.commit()
 
 	else:
