@@ -38,8 +38,10 @@ def get_trends(trend_id=23424848):
 	trend = api.trends_place(id=trend_id)
 	return trend
 
-def get_tweets(query):
-	data = api.search(query, result_type='recent')
+def get_tweets(query, result_type='recent'):
+	
+	data = api.search(query, result_type=result_type)
+	
 	for status in data:
 		topic = query
 		hashs = ''
