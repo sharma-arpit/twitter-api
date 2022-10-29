@@ -6,6 +6,7 @@ from tweepy.streaming import StreamListener
 conn = sqlite3.connect("twitter.db")
 c = conn.cursor()
 
+# add secret keys in environment variables
 ckey="Consumer_Key"
 csecret="Consumer_Secret"
 atoken= "Access_Token"
@@ -32,9 +33,9 @@ c.execute("""CREATE TABLE twitter (
 '''
 
 
-def get_trends():
+def get_trends(trend_id=23424848):
 	#WOEID for india is 23424848
-	trend = api.trends_place(id=23424848)
+	trend = api.trends_place(id=trend_id)
 	return trend
 
 def get_tweets(query):
