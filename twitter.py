@@ -21,12 +21,10 @@ def query():
 
 	trends = helper.get_trends()
 	q = request.args.get('query').lower()
-	order = request.args.get('orderby')
+	order = request.args.get('orderby').lower()
 	data = []
-	if order == 'Retweet':
-		c.execute("SELECT * FROM twitter ORDER BY Retweet DESC")
-	elif order == 'favorite_count':
-		c.execute("SELECT * FROM twitter ORDER BY Favorite_count DESC")
+	if order in ['retweet', 'favorite_count']:
+		c.execute(f"SELECT * FROM twitter ORDER BY {order} DESC")
 	else:
 		c.execute("SELECT * FROM twitter ORDER BY tweet_id DESC")
 
